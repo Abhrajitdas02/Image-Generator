@@ -38,7 +38,12 @@ app.get("/", async (req, res) => {
 const connectDB = () => {
   mongoose.set("strictQuery", true);
   mongoose
-    .connect(process.env.MONGODB_URL)
+    .connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      connectTimeoutMS: 30000, // 30 seconds
+      socketTimeoutMS: 45000, // 45 seconds
+    })
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => {
       console.error("failed to connect with mongo");
