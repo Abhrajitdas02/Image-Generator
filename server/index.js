@@ -18,11 +18,10 @@ app.use("/api/post", PostRouter);
 
 app.use((req, res, next) => {
   const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  console.log(`Incoming request from IP: ${clientIP}`);
+  // console.log(`Incoming request from IP: ${clientIP}`);
   next();
 });
 
-// Route to get the Render IP address
 app.get("/getRenderIP", async (req, res) => {
   const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   res.status(200).json({
@@ -47,7 +46,6 @@ app.get("/", async (req, res) => {
   });
 });
 
-//function to connect to mongoose
 
 const connectDB = () => {
   mongoose.set("strictQuery", true);
@@ -55,8 +53,8 @@ const connectDB = () => {
     .connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      connectTimeoutMS: 60000, // 30 seconds
-      socketTimeoutMS: 100000, // 45 seconds
+      connectTimeoutMS: 60000, 
+      socketTimeoutMS: 100000, 
     })
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => {
