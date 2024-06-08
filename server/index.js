@@ -74,18 +74,4 @@ const startServer = async () => {
   }
 };
 
-app.get("/exampleRoute", async (req, res, next) => {
-  try {
-    const posts = await posts.find({}).timeout(30000); // Adjust timeout as needed
-    return res.status(200).json({ success: true, data: posts });
-  } catch (error) {
-    return next(
-      createError(
-        error.status,
-        error?.response?.data?.error.message || "Database operation timed out"
-      )
-    );
-  }
-});
-
 startServer();
