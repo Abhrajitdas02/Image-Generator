@@ -41,8 +41,8 @@ const connectDB = () => {
     .connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      connectTimeoutMS: 30000, // 30 seconds
-      socketTimeoutMS: 45000, // 45 seconds
+      connectTimeoutMS: 60000, // 30 seconds
+      socketTimeoutMS: 100000, // 45 seconds
     })
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => {
