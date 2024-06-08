@@ -8,7 +8,7 @@ dotenv.config();
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 // Get all posts
@@ -37,11 +37,13 @@ export const createPost = async (req, res, next) => {
       photo: photoUrl.secure_url,
     });
 
-    return res.status(200).json({ success: true, data: newPost });
-  } catch (error) {
-    console.log(error);
-    return next(
-      createError(error.status, error?.response?.data?.error.message)
+    return res.status(201).json({ success: true, data: newPost });
+  }catch (error) {
+    next(
+      createError(
+        error.status,
+        error?.response?.data?.error?.message || error?.message
+      )
     );
   }
 };

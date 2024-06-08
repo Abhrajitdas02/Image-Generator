@@ -14,7 +14,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); 
 
 app.use("/api/generateImage/", generateImageRoute);
-app.use("/api/post/", posts);
+app.use("/api/post", PostRouter);
 
 // error handler
 app.use((err, req, res, next) => {
