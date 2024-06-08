@@ -16,6 +16,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/generateImage/", generateImageRoute);
 app.use("/api/post", PostRouter);
 
+app.use((req, res, next) => {
+  const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  console.log(`Incoming request from IP: ${clientIP}`);
+  next();
+});
+
+// Route to get the Render IP address
+app.get("/getRenderIP", async (req, res) => {
+  const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  res.status(200).json({
+    ipAddress: clientIP,
+  });
+});
+
 // error handler
 app.use((err, req, res, next) => {
   const status = err.status || 500;
